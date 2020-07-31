@@ -18,7 +18,9 @@ function dataALL = collect_data()
 % select where to take the data from
 fileList = dir('data/analytics');
 if isempty(fileList)
-    warning 'data/analytics directory not found, run the function from the root directory\n'
+    warning 'data/analytics directory not found, run the function from the root directory'
+    warning 'place .analytics files in data/analytics'
+    return
 else
     fileList = fileList(3:length(fileList),:);
     
