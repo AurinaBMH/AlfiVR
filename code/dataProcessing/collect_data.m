@@ -2,11 +2,12 @@
 function dataALL = collect_data()
 
 % This function will load data and make a big table for each subjects ectracting the relevant information;
-% Aurina Arnatkeviciute 2020/07/24
+% Aurina Arnatkeviciute 2020/07/31
 
 % -----------------------------------------------------------------------------
 % INPUT: 
-% no input required
+% no input required, should be run from the root directory - all paths are
+% relative
 % -----------------------------------------------------------------------------
 
 % -----------------------------------------------------------------------------
@@ -142,5 +143,6 @@ for s = 1:length(fileList)
 end
 % combine subject data into one big table
 dataALL = vertcat(dataSubject{:}); 
+
 end
 
