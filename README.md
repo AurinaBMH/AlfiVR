@@ -13,5 +13,6 @@ All functions/scripts should be run from the root directory, relative paths are 
     % add paths required for the project:
     startup()
     % run collect_data
-    data = collect_data(); 
+    data = collect_data();
 ```
+`data` is a big table where all data from sessions/blocks/trials are stacked together. 
