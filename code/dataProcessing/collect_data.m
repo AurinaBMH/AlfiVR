@@ -1,4 +1,5 @@
 % This function will load data and make a big table for each subjects ectracting the relevant information;
+function dataALL = collect_data()
 
 fileList = dir('data/analytics');
 fileList = fileList(3:length(fileList),:);
@@ -97,6 +98,7 @@ for s = 1:length(fileList)
                                 
                             end
                         end
+                        data.(whatMeasures{m}) = selectData;
                 end
                 
             end
@@ -110,4 +112,5 @@ for s = 1:length(fileList)
 end
 % combine subject data into one big table
 dataALL = vertcat(dataSubject{:}); 
+end
 
