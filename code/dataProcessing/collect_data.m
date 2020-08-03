@@ -109,7 +109,9 @@ else
                                     timeStamp = alfi_sess.GameAnalytics.DragonSST.Blocks(b).Trials(t).(whatMeasures{m});
                                     % select elements and convert to ms
                                     STAMP_temp = split(timeStamp, ':');
-                                    selectData(t) = str2double(STAMP_temp{1})*3600+str2double(STAMP_temp{2})*60+str2double(STAMP_temp{3})*1000;
+                                    selectData(t) = (str2double(STAMP_temp{1})*3600 + ...
+                                        str2double(STAMP_temp{2})*60 + ...
+                                        str2double(STAMP_temp{3}))*1000;
                                     
                                 end
                             end
