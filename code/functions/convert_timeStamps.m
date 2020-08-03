@@ -89,7 +89,9 @@ for b=1:numBlocks
                 STAMP_temp = split(STAMP{i},'T');
                 STAMP_temp = split(STAMP_temp{2}, '+');
                 STAMP_temp = split(STAMP_temp{1}, ':'); % this gives hours, mins, sec;
-                STAMP_ms{i} = str2double(STAMP_temp{1})*3600+str2double(STAMP_temp{2})*60+str2double(STAMP_temp{3})*1000;
+                STAMP_ms{i} = (str2double(STAMP_temp{1})*3600 + ...
+                    str2double(STAMP_temp{2})*60 + ...
+                    str2double(STAMP_temp{3}))*1000;
             end
         end
         
