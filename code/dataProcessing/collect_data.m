@@ -1,8 +1,12 @@
-
 function dataALL = collect_data()
 
 % This function will load data and make a big table for each subjects ectracting the relevant information;
 % Aurina Arnatkeviciute 2020/07/31
+% James Coxon edits 2020/08/3 (whatMeasures, changed "Stop_Signal_Delay" to
+% "Left_Stop_Signal_Delay" and "Right_Stop_Signal_Delay", and then added code
+% for these cases
+% Aurina Arnatkeviciute 2020/08/03
+% modified file selection, fixed if statements
 
 % -----------------------------------------------------------------------------
 % INPUT:
@@ -17,27 +21,40 @@ function dataALL = collect_data()
 
 % select where to take the data from
 fileList = dir('data/analytics');
+
+%where to put the data
+fileOut = dir('data/excel');
+fileOut = fileOut(1).folder;
+
+% these should be separate if statements, can't be combined with the other
+if isempty(fileOut)
+    warning 'data/excel directory not found, run the function from the root directory'
+end
+
 if isempty(fileList)
     warning 'data/analytics directory not found, run the function from the root directory'
     warning 'place .analytics files in data/analytics'
     return
 else
-    fileList = fileList(3:length(fileList),:);
-    
+    % for each file, select only '.analytics'
+    isAN = zeros(length(fileList),1); 
+    for n = 1:length(fileList)
+        isAN(n) = contains(fileList(n).name, '.analytics'); 
+    end
+    fileList = fileList(isAN==1,:);
+
     % measures to be extracted;
     whatMeasures = {'SessionNumber', 'Block', 'Trial', 'Trial_Type', ...
         'Stop_Signal_Left', 'Stop_Signal_Right', 'Cue_Type', 'Safe_Response_Range', ...
-        'Cue_Accuracy', 'Adaptive_Stop_Signal_Offset', 'Stop_Signal_Delay',	...
+        'Cue_Accuracy', 'Adaptive_Stop_Signal_Offset', 'Left_Stop_Signal_Delay', 'Right_Stop_Signal_Delay',	...
         'responseTimeLeft', 'responseTimeRight', 'Avg_RespTime', 'L_R_Synchrony'};
     
     % loop over all of the files in the "data" folder:
     dataSubject = cell(length(fileList),1);
     for s = 1:length(fileList)
-        
+
         fname = fileList(s).name;
-        % for files that are .analytics
-        if contains(fname, '.analytics')
-            
+
             % Get the data out of the .analytics file
             alfi_sess = convert_timeStamps(fname);
             numBlocks = length(alfi_sess.GameAnalytics.DragonSST.Blocks);
@@ -83,7 +100,7 @@ else
                             % add variables to table;
                             data.(whatMeasures{m}) = selectData;
                             
-                        case 'Stop_Signal_Delay'
+                        case {'Left_Stop_Signal_Delay', 'Right_Stop_Signal_Delay'}
                             % convert time stamp to number in ms
                             selectData = nan(numTrials,1);
                             for t=1:numTrials
@@ -98,7 +115,7 @@ else
                             end
                             % add variables to table;
                             data.(whatMeasures{m}) = selectData;
-                            
+
                         case {'Avg_RespTime', 'L_R_Synchrony'}
                             % calculate those based on L/R response times;
                             selectData = nan(numTrials,1);
@@ -140,14 +157,14 @@ else
                 end
                 % data for each block added to the session cell
                 dataSession{b} = data;
-                
+                clear subName  
             end
             % data from each file placed into a cell (these will be vertcat later)
             dataSubject{s} = vertcat(dataSession{:});
-        end
+
     end
     % combine subject data into one big table
     dataALL = vertcat(dataSubject{:});
 end
+ writetable(dataALL,'data/excel/Alfidata_ALL.xlsx','Sheet',1);
 end
-
