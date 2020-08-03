@@ -8,6 +8,14 @@ function dataALL = collect_data()
 % Aurina Arnatkeviciute 2020/08/03
 % modified file selection, fixed if statements
 
+%James 2020/08/03 This is a test. I've pulled down a clone from Aurina's
+%github. I've put it in a location that isn't part of my Google File Stream
+%(this was causing issues with Sourcetree). And now I'm making these
+%comments to change this file. Next I will attempt to "commit" or "push" or
+%whatever it takes. Good news is, the timestamp issues have been sorted,
+%and I've learned something. Maybe. I see you fixed up my ineloquent coding
+%Aurina :)
+
 % -----------------------------------------------------------------------------
 % INPUT:
 % no input required, should be run from the root directory - all paths are
