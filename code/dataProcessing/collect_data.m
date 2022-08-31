@@ -27,11 +27,21 @@ function dataALL = collect_data()
 % dataALL - table containing all data within data/analytics folder
 % -----------------------------------------------------------------------------
 
-% select where to take the data from
-fileList = dir('data/analytics');
+% Create OS agnostic path to project directory
+projDir = dir();
+projDir = projDir(1).folder;
 
-%where to put the data
-fileOut = dir('data/excel');
+% select where to take the data from
+fileList = dir(fullfile(projDir, 'data', 'analytics'));
+
+% where to put the data
+
+% Check if excel subdirectory is present, if not create it
+if ~exist(fullfile(projDir, 'data', 'excel'), 'dir')  
+    mkdir(fullfile(projDir, 'data', 'excel'));
+end
+
+fileOut = dir(fullfile(projDir, 'data', 'excel'));
 fileOut = fileOut(1).folder;
 
 % these should be separate if statements, can't be combined with the other
@@ -176,5 +186,5 @@ else
     % combine subject data into one big table
     dataALL = vertcat(dataSubject{:});
 end
- writetable(dataALL,'data/excel/Alfidata_ALL.xlsx','Sheet',1);
+ writetable(dataALL, fullfile(projDir, 'data', 'excel', 'ALFIdata_ALL.xlsx'),'Sheet',1);
 end
