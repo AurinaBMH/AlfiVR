@@ -1,2 +1,9 @@
 # Ignore Matlab autosave files
 *.asv
+
+# Ignore temporary finder files on macOS
+*.DS_Store
+
+# Ignore data files (we don't want to push these to a public repo)
+/data/analytics/*
+/data/excel/*
