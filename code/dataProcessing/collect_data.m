@@ -16,6 +16,8 @@ function dataALL = collect_data()
 %and I've learned something. Maybe. I see you fixed up my ineloquent coding
 %Aurina :)
 
+% Dan - added a few lines to output to csv 2022-09-07
+
 % -----------------------------------------------------------------------------
 % INPUT:
 % no input required, should be run from the root directory - all paths are
@@ -39,6 +41,11 @@ fileList = dir(fullfile(projDir, 'data', 'analytics'));
 % Check if excel subdirectory is present, if not create it
 if ~exist(fullfile(projDir, 'data', 'excel'), 'dir')  
     mkdir(fullfile(projDir, 'data', 'excel'));
+end
+
+% Check if csv subdirectory is present, if not create it
+if ~exist(fullfile(projDir, 'data', 'csv'), 'dir')  
+    mkdir(fullfile(projDir, 'data', 'csv'));
 end
 
 fileOut = dir(fullfile(projDir, 'data', 'excel'));
@@ -187,4 +194,5 @@ else
     dataALL = vertcat(dataSubject{:});
 end
  writetable(dataALL, fullfile(projDir, 'data', 'excel', 'ALFIdata_ALL.xlsx'),'Sheet',1);
+ writetable(dataALL, fullfile(projDir, 'data', 'csv', 'ALFIdata_ALL.csv'));
 end

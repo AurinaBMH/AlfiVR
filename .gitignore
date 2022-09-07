@@ -7,3 +7,4 @@
 # Ignore data files (we don't want to push these to a public repo)
 /data/analytics/*
 /data/excel/*
+/data/csv/*
