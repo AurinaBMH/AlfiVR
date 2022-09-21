@@ -1,22 +1,10 @@
-function dataALL = collect_data()
+function dataALL = collect_validity_data()
 
-% This function will load data and make a big table for each subjects ectracting the relevant information;
-% Aurina Arnatkeviciute 2020/07/31
-% James Coxon edits 2020/08/3 (whatMeasures, changed "Stop_Signal_Delay" to
-% "Left_Stop_Signal_Delay" and "Right_Stop_Signal_Delay", and then added code
-% for these cases
-% Aurina Arnatkeviciute 2020/08/03
-% modified file selection, fixed if statements
-
-%James 2020/08/03 This is a test. I've pulled down a clone from Aurina's
-%github. I've put it in a location that isn't part of my Google File Stream
-%(this was causing issues with Sourcetree). And now I'm making these
-%comments to change this file. Next I will attempt to "commit" or "push" or
-%whatever it takes. Good news is, the timestamp issues have been sorted,
-%and I've learned something. Maybe. I see you fixed up my ineloquent coding
-%Aurina :)
-
-% Dan - added a few lines to output to csv 2022-09-07
+% This function will load data and make a big table for all validity data
+% This function is a copy of collect_data, aims to compose same output, but
+% for validity data-sets. These should be stored in data/validity-analytics
+% folder
+% Dan - 2022-09-22
 
 % -----------------------------------------------------------------------------
 % INPUT:
@@ -34,7 +22,7 @@ projDir = dir();
 projDir = projDir(1).folder;
 
 % select where to take the data from
-fileList = dir(fullfile(projDir, 'data', 'analytics'));
+fileList = dir(fullfile(projDir, 'data', 'validity-analytics'));
 
 % where to put the data
 
@@ -57,8 +45,8 @@ if isempty(fileOut)
 end
 
 if isempty(fileList)
-    warning 'data/analytics directory not found, run the function from the root directory'
-    warning 'place .analytics files in data/analytics'
+    warning 'data/validity-analytics directory not found, run the function from the root directory'
+    warning 'place .analytics files in data/validity-analytics'
     return
 else
     % for each file, select only '.analytics'
@@ -193,6 +181,6 @@ else
     % combine subject data into one big table
     dataALL = vertcat(dataSubject{:});
 end
- writetable(dataALL, fullfile(projDir, 'data', 'excel', 'ALFIdata_ALL.xlsx'),'Sheet',1);
- writetable(dataALL, fullfile(projDir, 'data', 'csv', 'ALFIdata_ALL.csv'));
+ writetable(dataALL, fullfile(projDir, 'data', 'excel', 'ALFIdata_VALIDITY.xlsx'),'Sheet',1);
+ writetable(dataALL, fullfile(projDir, 'data', 'csv', 'ALFIdata_VALIDITY.csv'));
 end

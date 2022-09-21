@@ -15,4 +15,9 @@ All functions/scripts should be run from the root directory, relative paths are 
     % run collect_data
     data = collect_data();
 ```
+
 `data` is a big table where all data from sessions/blocks/trials are stacked together. 
+
+  - `list_all_users()` - will list all unique user names found in the analytics directory
+  - `delete_users()`   - will delete analytics files with a particular username (useful for deleting test or pilot runs)
+  - `collect_validity_data()` - Same as `collect_data()` however looks for data in `data/validity-analytics`
