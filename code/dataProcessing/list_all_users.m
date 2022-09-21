@@ -1,4 +1,4 @@
-function userNames = list_all_users()
+function [userNames, jsonFiles] = list_all_users()
 % ----------------------------------------------------------------------
 % userNames = list_all_users()
 % ----------------------------------------------------------------------
@@ -44,5 +44,5 @@ function userNames = list_all_users()
     end
     
     userNames = unique({jsonFiles.Name})';
-    
+    jsonFiles
 end
